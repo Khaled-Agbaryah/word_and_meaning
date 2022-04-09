@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <!--
+        make a word list page
+        receive all words from server
+        shuffle them
+        and display one at a time
+    -->
+    <head>
+        <title>Word List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Word List</h1>
+                    <hr />
+                    <br />
+                    <form action="/2" method="POST">
+                        <input type="text" name="word" placeholder="Word" style="margin-right: 1%;" />
+                        <input type="text" name="meaning" placeholder="Meaning" /><br />
+                        <input type="submit" value="Add Word" style="margin-top: 1%;" />
+                    </form>
+                    <br />
+                    <br />
+                    <button onclick="reveal()">Reveal Word</button> 
+                    <button onclick="newWord()">Next -></button>
+                    <br />
+                    <h1 id="i" hidden></h1>
+                    {{ for i,j,k in words }}
+                        <h1 id="w{{k}}" hidden>{{i}}</h1>
+                        <h1 id="m{{k}}" hidden>{{j}}</h1>
+                    {{ endfor }}
+                    <hr />
+                    <br />
+                    <script>
+                        function reveal() {
+                            var i = document.getElementById("i").value;
+                            var meaning = document.getElementById("m" + i);
+                            meaning.hidden = false;
+                        }
+                        function newWord() {
+                            n = '{{len(words)}}';
+                            rand_int = Math.floor(Math.random() * n);
+                            word = document.getElementById("w" + rand_int);
+                            meaning = document.getElementById("m" + rand_int);
+                            word.hidden = flase;
+                            meaning.hidden = true;
+                            document.getElementById("i").value = rand_int;
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
